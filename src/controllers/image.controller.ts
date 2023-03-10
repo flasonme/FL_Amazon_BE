@@ -74,7 +74,7 @@ export class ImageController extends BaseController {
         const imageSize = req.params.size ? parseInt(req.params.size) : 400;
 
         if (getTypeImage == ImageType.GIF) {
-            await this.resizeGIF(req.file.filename, path);
+            await this.resizeGIF(filename, path);
         } else {
             await this.resizedImage(path, FILE_IMAGE_PATH + filename, imageSize);
         }
@@ -90,22 +90,21 @@ export class ImageController extends BaseController {
         const files = Array.isArray(req.files) ? req.files : null;
 
         if (!files?.length) {
-            // Handle error for no files uploaded
             return res.status(400).send("No files were uploaded");
         }
 
         const {mimetype} = files[0];
         const fileType = mimetype.split("/")[0];
-
+        console.log("PHASE 1 ==> ", fileType)
         if (fileType !== "image") {
             // Handle error for invalid file type
             return res.status(400).send("Uploaded file is not an image");
         }
 
         const fileUrl = this.IMAGE_URL;
-        const imageSize = req.params.size ? parseInt(req.params.size) : null;
+        const imageSize = req.params.size ? parseInt(req.params.size) : 400;
         const resizedFiles = [];
-
+        console.log("PHASE 2 ==> ", fileUrl)
         for (const file of files) {
             const {path} = file;
             let {filename} = file;
@@ -119,7 +118,7 @@ export class ImageController extends BaseController {
             if (mimetype === ImageType.GIF) {
                 await this.resizeGIF(filename, path);
             } else {
-                await this.resizedImage(filename, path, imageSize);
+                await this.resizedImage(path,FILE_IMAGE_PATH + filename, imageSize);
             }
 
             const url = `${fileUrl}${filename}`;
