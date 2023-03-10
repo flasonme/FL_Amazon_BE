@@ -1,0 +1,22 @@
+# baseURL
+
+###
+# User Signup
+POST http://localhost:1511/auth/signup
+Content-Type: application/json
+
+{
+  "email": "test21@email.com",
+  "password": "password",
+  "role": "USER"
+}
+
+###
+# User Login
+POST http://localhost:1511/auth/login
+Content-Type: application/json
+
+{
+  "email": "test21@email.com",
+  "password": "password"
+}
