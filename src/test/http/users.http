@@ -1,0 +1,32 @@
+# Find All Users
+GET {{ baseURL }}/users
+
+###
+# Find User By Id
+GET {{ baseURL }}/users/63f9bd68938fd915daa33314
+
+###
+# Create User
+POST {{ baseURL }}/users
+Content-Type: application/json
+
+{
+  "email": "example2@email.com",
+  "password": "password",
+  "role": "USER"
+}
+
+###
+# Modify User By Id
+PUT {{ baseURL }}/users/63f9bf81bdb43bc9590775af
+Content-Type: application/json
+
+{
+  "email": "example12@email.com",
+  "password": "password",
+  "role": "USER"
+}
+
+###
+# Delete User By Id
+DELETE {{ baseURL }}/users/63f9bf81bdb43bc9590775af
