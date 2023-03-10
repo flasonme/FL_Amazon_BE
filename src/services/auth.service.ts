@@ -26,7 +26,7 @@ export class AuthService extends CRUDService<typeof UserModel> {
     public async login(userData: UserDto): Promise<{ cookie: string; refreshToken: Object; findUser: IUser }> {
         if (isEmpty(userData)) throw new AppException(400, 'userData is empty');
 
-        const findUser: IUser = await this.model.findOne({email: userData.email}).select('+password').toObject();
+        const findUser: IUser = await this.model.findOne({email: userData.email}).select('+password').then(data => data.toJSON());
         if (!findUser) throw new AppException(409, `This email ${userData.email} was not found`);
         const isPasswordMatching: boolean = await bcrypt.compare(userData.password, findUser.password);
         if (!isPasswordMatching) throw new AppException(409, 'Password not matching');
@@ -39,7 +39,7 @@ export class AuthService extends CRUDService<typeof UserModel> {
         return {cookie, refreshToken, findUser};
     }
 
-    public createAccessToken(user: IUser): {accessToken: string, expiresIn: number} {
+    public createAccessToken(user: IUser): { accessToken: string, expiresIn: number } {
         const dataStoredInToken: DataStoredInToken = {id: user._id, role: user.role};
         const secretKey: string = config.SECRET_KEY;
         const expiresIn: number = 60 * 60;
@@ -56,7 +56,7 @@ export class AuthService extends CRUDService<typeof UserModel> {
         return {refreshToken, expiresIn};
     }
 
-    public createCookie(accessToken: {accessToken: string, expiresIn: number}): string {
+    public createCookie(accessToken: { accessToken: string, expiresIn: number }): string {
         return `Authorization=Bearer ${accessToken.accessToken}; HttpOnly; Max-Age=${accessToken.expiresIn}`;
     }
 }

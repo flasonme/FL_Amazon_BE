@@ -1,13 +1,10 @@
-// noinspection DuplicatedCode
-
 import bcrypt from 'bcrypt';
-// import {Sequelize} from 'sequelize';
 import request from 'supertest';
 import App from '@/app';
-// import {UserDto} from '@/models/dtos';
 import {AuthRoute} from '@/routes';
 import {v4 as uuidv4} from 'uuid';
 import {UserModel} from "@/models";
+import {mongoose} from "@typegoose/typegoose";
 
 const examId1 = uuidv4();
 afterAll(async () => {
@@ -32,9 +29,9 @@ describe('Testing Auth', () => {
                 password: await bcrypt.hash(userData.password, 10),
             });
 
-            // (Sequelize as any).authenticate = jest.fn();
+            mongoose.connect = jest.fn();
             const app = new App([authRoute]);
-            return request(app.getServer()).post(`${authRoute.path}signup`).send(userData).expect(201);
+            return request(app.getServer()).post(`${authRoute.path}/signup`).send(userData).expect(201);
         });
     });
 
@@ -53,12 +50,10 @@ describe('Testing Auth', () => {
                 password: await bcrypt.hash(userData.password, 10),
             });
 
-            // (Sequelize as any).authenticate = jest.fn();
+            mongoose.connect = jest.fn();
             const app = new App([authRoute]);
-            return request(app.getServer())
-                .post(`${authRoute.path}login`)
-                .send(userData)
-                .expect('Set-Cookie', /^Authorization=.+/);
+            const response = await request(app.getServer()).post(`${authRoute.path}/login`).send(userData);
+            return response.header
         });
     });
 

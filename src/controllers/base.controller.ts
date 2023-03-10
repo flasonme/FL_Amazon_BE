@@ -2,6 +2,9 @@ import { Response } from 'express';
 import { IQueryOption } from '@/interfaces';
 
 export class BaseController {
+    constructor() {
+
+    }
   onError(res: Response, error: Error): Response {
     return res.status(500).json({ message: error.message });
   }

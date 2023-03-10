@@ -9,9 +9,9 @@ const storage = multer.diskStorage({
     filename: function (req, file, callback) {
         const getTypeImage = file.mimetype.split("/")[1];
         if (getTypeImage === "gif") {
-            callback(null, file.fieldname + "-" + Date.now() + ImageType.GIF);
+            callback(null, file.fieldname + "-" + Date.now() +'.'+ ImageType.GIF);
         } else {
-            callback(null, file.fieldname + "-" + Date.now() + ImageType.PNG);
+            callback(null, file.fieldname + "-" + Date.now() +'.'+ ImageType.PNG);
         }
     }
 });

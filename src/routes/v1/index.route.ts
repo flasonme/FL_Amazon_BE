@@ -11,7 +11,7 @@ export class IndexRoute implements IRoute {
     this.customRouting();
   }
 
-  private customRouting() {
+  public customRouting() {
     this.router.get(`${this.path}`, this.indexController.index);
   }
 }

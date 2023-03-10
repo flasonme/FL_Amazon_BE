@@ -4,5 +4,4 @@ export enum ImageType {
     GIF = 'gif',
     JPEG = 'jpeg',
     JPG = 'jpg',
-    HEIC = 'heic',
 }
