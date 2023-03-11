@@ -2,7 +2,7 @@ import {hash} from 'bcrypt';
 import {UserModel} from '@/models';
 import {UserDto} from '@/common/dtos';
 import {AppException} from '@/common/exceptions';
-import {IUser} from '@/interfaces';
+import {IQueryOption, IUser} from '@/interfaces';
 import {isEmpty} from '@/utils';
 import {CRUDService} from '@services/crud.service';
 
@@ -11,8 +11,8 @@ export class UserService extends CRUDService<typeof UserModel> {
         super(UserModel);
     }
 
-    public async findAllUser(): Promise<UserDto[]> {
-        return this.model.find();
+    public async findAllUser(queryOption?: IQueryOption): Promise<UserDto[]> {
+        return this.model.find(queryOption.filter, queryOption.attributes, queryOption);
     }
 
     public async findUserById(userId: string): Promise<UserDto> {

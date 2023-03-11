@@ -18,12 +18,12 @@ export class BaseController {
     res: Response,
     object: any = {},
     options: IQueryOption = {
-      offset: 0,
+      skip: 0,
       limit: 10,
-      where: {},
+      filter: {},
     },
   ) {
-    const page = Math.floor(options.offset / options.limit) + 1;
+    const page = Math.floor(options.skip / options.limit) + 1;
     res.status(200).json({
       object,
       pagination: { current_page: page, next_page: page + 1, prev_page: page - 1, limit: options.limit },

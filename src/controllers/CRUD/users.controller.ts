@@ -13,8 +13,8 @@ export class UsersController extends CRUDController<UserService> {
   public getUsers = async (req: Request, res: Response, next: NextFunction) => {
     console.log('CONTROLLER');
     try {
-      const findAllUsersData: UserDto[] = await this.service.findAllUser();
-      this.onSuccessPaginate(res, findAllUsersData);
+      const findAllUsersData: UserDto[] = await this.service.findAllUser(req.queryInfo);
+      this.onSuccessPaginate(res, findAllUsersData, req.queryInfo);
       // res.status(200).json({ data: findAllUsersData, message: 'findAll' });
     } catch (error) {
       // console.log(error);
