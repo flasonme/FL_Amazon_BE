@@ -6,7 +6,7 @@ import {Gender, Role} from "@/common/constants";
 class User implements IUser {
     @prop({required: true, unique: true})
     public email: string;
-    @prop({select: false,required: false})
+    @prop({select: false, required: false})
     public password: string;
     @prop({required: false})
     public name: string;
