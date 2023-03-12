@@ -1,5 +1,4 @@
 import {IUser, IRoom} from "@/interfaces";
-import {PropertyType} from "@/common/constants";
 
 export interface IProperty {
     _id?: string;
@@ -9,7 +8,6 @@ export interface IProperty {
     rating?: number;
     image?: Array<string> // Image URL
     description?: string;
-    type?: PropertyType;
     amenities?: IPropertyAmenity;
     owner?: IUser;
     rooms?: Array<IRoom>;
