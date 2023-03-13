@@ -8,7 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 import cookieParser from 'cookie-parser';
 import {IRoute} from '@/interfaces';
 import {logger, stream} from '@/utils';
-import {errorMiddleware} from '@/middlewares';
+import {errorMiddleware, QueryMiddleware} from '@/middlewares';
 import config from '@config';
 import {mongoose} from "@typegoose/typegoose";
 
@@ -63,6 +63,8 @@ export default class App {
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: true}));
         this.app.use(cookieParser());
+        // Run query on every request
+        this.app.use(QueryMiddleware)
     }
 
     private initializeRoutes(routes: IRoute[]) {

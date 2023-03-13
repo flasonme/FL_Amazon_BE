@@ -4,7 +4,7 @@ import {UserDto} from '@/common/dtos';
 import {AppException} from '@/common/exceptions';
 import {IQueryOption, IUser} from '@/interfaces';
 import {isEmpty} from '@/utils';
-import {CRUDService} from '@services/crud.service';
+import {CRUDService} from '@/services';
 
 export class UserService extends CRUDService<typeof UserModel> {
     constructor() {

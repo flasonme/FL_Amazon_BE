@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import { UserDto } from '@/common/dtos';
 import { RequestWithUser, IUser } from '@/interfaces';
-import { AuthService } from '@/services';
+import { authService } from '@/services';
 import { logger } from '@/utils';
 import { CRUDController } from '@controllers/crud.controller';
 
-export class AuthController extends CRUDController<AuthService> {
+export class AuthController extends CRUDController<typeof authService> {
   constructor() {
-    super(new AuthService());
+    super(authService);
   }
 
   public signUp = async (req: Request, res: Response, next: NextFunction) => {

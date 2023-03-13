@@ -8,21 +8,21 @@ export class CRUDService<T extends ModelType<any>> {
 
   protected readonly model: ModelType<any>;
 
-  getItem(queryInfo?: IQueryOption) {
-    return this.model.findOne(queryInfo);
+  public async findOne(queryOption?: IQueryOption) {
+    return this.model.findOne(queryOption.filter, queryOption.attributes, queryOption);
   }
 
-  async getList(queryInfo?: IQueryOption): Promise<T[]> {
-    return this.model.find(queryInfo);
+  public async findMany(queryOption?: IQueryOption): Promise<T[]> {
+        return this.model.find(queryOption.filter, queryOption.attributes, queryOption);
   }
 
-  async create(params: any): Promise<T> {
+  public async create(params: any): Promise<T> {
     return await this.model.create(params);
   }
-  async update(id: string, params: any): Promise<any> {
+  public async update(id: string, params: any): Promise<any> {
       return this.model.updateOne({_id: id}, params);
   }
-  async delete(id: string): Promise<any> {
+  public async delete(id: string): Promise<any> {
       return this.model.deleteOne({_id: id})
   }
 }

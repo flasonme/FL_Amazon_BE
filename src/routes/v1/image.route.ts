@@ -1,13 +1,13 @@
 import {IRoute} from '@/interfaces';
 import {BaseRouter} from "@routes/base.route";
 import {uploadSingleImage, uploadMultipleImage} from "@/middlewares";
-import {ImageController} from "@/controllers";
+import {imageController} from "@/controllers";
 
-export class ImageRoute extends BaseRouter<ImageController> implements IRoute {
+export class ImageRoute extends BaseRouter<typeof imageController> implements IRoute {
     public path = '/image';
 
     constructor() {
-        super(new ImageController());
+        super(imageController);
         this.customRouting();
     }
 

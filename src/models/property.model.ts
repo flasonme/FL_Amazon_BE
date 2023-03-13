@@ -18,7 +18,7 @@ const defaultAmenities: IPropertyAmenity = {
 }
 
 @modelOptions({schemaOptions: {collection: 'properties', timestamps: true}})
-class Property implements IProperty {
+export class Property implements IProperty {
     @prop({required: true, default: 'New Property'})
     name!: string;
 

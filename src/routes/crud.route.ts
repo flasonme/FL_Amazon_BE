@@ -11,7 +11,7 @@ export class CRUDRouter<T extends CRUDController<any>> implements IRoute {
   }
 
   public path;
-  protected controller: T;
+  public controller: T;
   public router: Router;
 
   public baseRouting() {

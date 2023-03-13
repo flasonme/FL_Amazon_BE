@@ -1,15 +1,15 @@
-import {AuthController} from '@/controllers';
+import {authController} from '@/controllers';
 import {UserDto} from '@/common/dtos';
 import {IRoute} from '@/interfaces';
 import {authMiddleware} from '@/middlewares';
 import {validationMiddleware} from '@/middlewares';
 import {CRUDRouter} from "@routes/crud.route";
 
-export class AuthRoute extends CRUDRouter<AuthController> implements IRoute {
+export class AuthRoute extends CRUDRouter<typeof authController> implements IRoute {
     public path = '/auth';
 
     constructor() {
-        super(new AuthController());
+        super(authController);
         this.baseRouting();
     }
 
