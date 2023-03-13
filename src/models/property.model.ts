@@ -1,23 +1,45 @@
-import {prop, getModelForClass, modelOptions} from "@typegoose/typegoose";
-import {IUser} from "@/interfaces";
-import {Gender, Role} from "@/common/constants";
+import {prop, getModelForClass, modelOptions, Ref, Severity} from "@typegoose/typegoose";
+import {IProperty, IPropertyAmenity} from "@/interfaces";
+import {User} from "@models/user.model";
+import {Room} from "@models/room.model";
 
-@modelOptions({schemaOptions: {collection: 'users', timestamps: true}})
-class User implements IUser {
-    @prop({required: true, unique: true})
-    public email: string;
-    @prop({select: false,required: false})
-    public password: string;
-    @prop({required: false})
-    public name: string;
-    @prop({type: String, default: Gender.OTHER})
-    public gender: Gender;
-    @prop({type: String, default: Role.USER})
-    public role: Role;
+const defaultAmenities: IPropertyAmenity = {
+    wifi: true,
+    parking: true,
+    kitchen: true,
+    airConditioning: true,
+    washingMachine: true,
+    elevator: false,
+    pool: false,
+    petsAllowed: false,
+    smokingAllowed: false,
+    balcony: true,
+    terrace: true
+}
+
+@modelOptions({schemaOptions: {collection: 'properties', timestamps: true}})
+class Property implements IProperty {
+    @prop({required: true, default: 'New Property'})
+    name!: string;
+
+    @prop({type: () => String})
+    location?: string;
+    @prop({default: 0})
+    rating?: number;
+    @prop({type: () => [String]})
+    image?: Array<string> // Image URL
+    @prop({type: () => String})
+    description?: string;
+    @prop({type: () => Object, allowMixed: Severity.WARN, default: defaultAmenities})
+    amenities?: IPropertyAmenity;
+    @prop({ref: () => User})
+    owner?: Ref<User>;
+    @prop({ref: () => Room})
+    rooms?: Room[];
 
     public createdAt?: Date;
     public updatedAt?: Date;
     public deletedAt?: Date;
 }
 
-export const UserModel = getModelForClass(User);
+export const PropertyModel = getModelForClass(Property);

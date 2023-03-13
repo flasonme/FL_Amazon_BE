@@ -2,14 +2,13 @@ import {IUser, IRoom} from "@/interfaces";
 
 export interface IProperty {
     _id?: string;
+    name?: string;
     location?: string;
-    latitude?: number;
-    longitude?: number;
     rating?: number;
     image?: Array<string> // Image URL
     description?: string;
     amenities?: IPropertyAmenity;
-    owner?: IUser;
+    owner?: IUser | any;
     rooms?: Array<IRoom>;
 }
 
@@ -21,8 +20,6 @@ export interface IPropertyAmenity {
     washingMachine: boolean;
     elevator: boolean;
     pool: boolean;
-    gym: boolean;
-    breakfast: boolean;
     petsAllowed: boolean;
     smokingAllowed: boolean;
     balcony: boolean;

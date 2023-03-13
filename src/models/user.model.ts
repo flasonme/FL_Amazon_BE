@@ -3,7 +3,7 @@ import {IUser} from "@/interfaces";
 import {Gender, Role} from "@/common/constants";
 
 @modelOptions({schemaOptions: {collection: 'users', timestamps: true}})
-class User implements IUser {
+export class User implements IUser {
     @prop({required: true, unique: true})
     public email: string;
     @prop({select: false, required: false})

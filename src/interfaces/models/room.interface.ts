@@ -6,7 +6,6 @@ export interface IRoom {
     name?: string;
     description?: string;
     view?: Array<PropertyView>;
-    price?: number;
     image?: Array<string> // Image URL
     amenities?: IRoomAmenity;
     owner?: IUser;
@@ -21,10 +20,10 @@ export interface IRoomAmenity {
 
 export interface IRoomFacility {
     bathtub?: boolean;
-    bed?: [["Single", "Double", "Queen", "King"], ["Single"], ["Double"], ["Queen"], ["King"]];
+    bed?: string;
     bedCount?: number;
     soundProof?: boolean;
     television?: boolean;
-    refrigerator?: string
+    refrigerator?: boolean
 }
 
